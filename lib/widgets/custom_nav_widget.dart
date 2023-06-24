@@ -30,6 +30,7 @@ class CustomNavWidget extends StatelessWidget {
                 title: item.title,
                 icon: item.icon,
                 onPress: item.onPress,
+                badgeCount: item.badgeCount,
               );
             },
           ),

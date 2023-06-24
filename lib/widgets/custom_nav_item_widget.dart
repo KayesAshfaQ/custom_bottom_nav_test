@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badge;
 
 import '../provider/nav_item_provider.dart';
 
@@ -8,6 +9,7 @@ class CustomRowItem extends StatelessWidget {
   final String title;
   final IconData icon;
   final void Function()? onPress;
+  final int badgeCount;
 
   const CustomRowItem({
     super.key,
@@ -15,6 +17,7 @@ class CustomRowItem extends StatelessWidget {
     required this.title,
     required this.icon,
     this.onPress,
+    this.badgeCount = 0,
   });
 
   @override
@@ -54,10 +57,21 @@ class CustomRowItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(icon,
-                      color: index == selectedIndex
-                          ? Colors.white
-                          : Colors.deepPurple),
+                  badge.Badge(
+                    showBadge: badgeCount > 0 && index != selectedIndex,
+                    position: badge.BadgePosition.topEnd(top: -12, end: -8),
+                    badgeContent: Text(
+                      badgeCount.toString(),
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Icon(icon,
+                        color: index == selectedIndex
+                            ? Colors.white
+                            : Colors.deepPurple),
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     title,
